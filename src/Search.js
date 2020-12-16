@@ -10,7 +10,7 @@ function Search() {
 
   const onChangeSearch = (e) => {
     setValue(e.target.value);
-    if (value.length != 0) {
+    if (value.length !== 0) {
       getSuggestions(e.target.value)
         .then((result) => {
           setSearchList(result);
@@ -70,7 +70,7 @@ function Search() {
       <ul>
         {searchList.map((data, index) => {
           return (
-            value.length != 0 && (
+            value.length !== 0 && (
               <li onClick={() => onClickList(data)}>{data}</li>
             )
           );
