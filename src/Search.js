@@ -9,6 +9,7 @@ function Search() {
   const [value, setValue] = useState("");
   const [searchList, setSearchList] = useState([]);
 
+  //waits for user to stop typing in serchbox
   const debounceSearch = useCallback(
     debounce((searches) => setSearchList(searches), 1000),
     []
