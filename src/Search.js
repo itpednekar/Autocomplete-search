@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import "./Search.css";
+import { debounce } from "lodash";
 
 var FAILURE_COEFF = 10;
 var MAX_SERVER_LATENCY = 200;
@@ -8,12 +9,17 @@ function Search() {
   const [value, setValue] = useState("");
   const [searchList, setSearchList] = useState([]);
 
+  const debounceSearch = useCallback(
+    debounce((searches) => setSearchList(searches), 1000),
+    []
+  );
+
   const onChangeSearch = (e) => {
     setValue(e.target.value);
     if (value.length !== 0) {
       getSuggestions(e.target.value)
         .then((result) => {
-          setSearchList(result);
+          debounceSearch(result);
         })
         .catch((err) => {});
     } else setSearchList([]);
